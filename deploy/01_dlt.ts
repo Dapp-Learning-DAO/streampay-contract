@@ -1,5 +1,5 @@
 const { ethers } = require("hardhat");
-import sablierAddress from "../scripts/stream/sablier.json"
+import sablierAddress from "../scripts/sablier.json"
 
 module.exports = async ({ getNamedAccounts, deployments }: { getNamedAccounts: any, deployments: any }) => {
   const { deploy } = deployments;
