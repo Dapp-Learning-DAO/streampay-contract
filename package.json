@@ -6,7 +6,8 @@
     "compile": "hardhat compile",
     "deploy": "hardhat deploy",
     "postdeploy": "hardhat run scripts/publish.ts",
-    "test": "hardhat test"
+    "test": "hardhat test",
+    "stream": "hardhat run scripts/index.ts"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.2.1",

@@ -10,32 +10,6 @@ async function main() {
     const token = "0x016b496974422684ac4474d1d8b75a16b02c14cd";
     const DLStreamContract = await ethers.getContractAt("DlStream", contracts.dl);
 
-    // const createStream = async () => {
-    //     const currentTimestamp = Math.floor(Date.now() / 1000) + 20
-
-    //     const res = await DLStreamContract.createLinearStream({
-    //         sender: signer.address,
-    //         recipient: '0xAD3A45194eC873d8d6ED908590CF59F7309d6a5f',
-    //         totalAmount: "1000000000000000000000",
-    //         asset: token,
-    //         cancelable: true,
-    //         transferable: true,
-    //         range: {
-    //             cliff: 1704045153,
-    //             start: 1703958753,
-    //             end: 1706550753
-    //         },
-    //     }, 1, {
-    //         gasLimit: 2000000
-    //     })
-
-    //     await res?.wait(2);
-    // }
-
-    // await createStream();
-
-    // const token = "0x016b496974422684ac4474d1d8b75a16b02c14cd";
-
     // const contractERC20 = new ethers.Contract(token, [{
     //     "inputs": [
     //         {
@@ -60,13 +34,32 @@ async function main() {
     //     "stateMutability": "nonpayable",
     //     "type": "function"
     // }], signer);
-    // const approveRes = await contractERC20.approve(dlSablier, "1000000000000000000000000000000000000000000000000");
+    // const approveRes = await contractERC20.approve(contracts.dl, "1000000000000000000000000000000000000000000000000");
     // console.log(approveRes?.hash)
 
-    // const contract = new ethers.Contract(dlSablier, dlSablierAbi, signer);
+    // return
 
-    // const res = await contract.createLinearStream("1000000000000000000000000000", "0xad3a45194ec873d8d6ed908590cf59f7309d6a5f");
-    // console.log(res?.hash)
+    const createStream = async () => {
+        const blockTimestamp = (await ethers.provider.getBlock("latest")).timestamp;
+        const start = blockTimestamp + 10, cliff = blockTimestamp + 100, end = blockTimestamp + 1000;
+
+        const res = await DLStreamContract.createLinearStream({
+            sender: signer.address,
+            recipient: '0xAD3A45194eC873d8d6ED908590CF59F7309d6a5f',
+            totalAmount: "1000000000000000000000",
+            asset: token,
+            cancelable: true,
+            transferable: true,
+            range: { cliff, start, end },
+        }, 1, {
+            gasLimit: 2000000
+        })
+
+        await res?.wait(2);
+    }
+
+    await createStream();
+
 }
 
 main().catch((error) => {
