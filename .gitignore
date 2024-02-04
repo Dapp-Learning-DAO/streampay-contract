@@ -1,0 +1,17 @@
+node_modules
+.env
+.openzeppelin/
+coverage
+coverage.json
+typechain
+
+#Hardhat files
+cache
+artifacts
+deployments/*
+.DS_Store
+article.md
+.vscode
+/.history
+/.openzeppelin
+/.vscode
